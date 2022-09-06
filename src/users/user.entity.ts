@@ -5,8 +5,9 @@ import {
     Column,
     PrimaryGeneratedColumn,
     AfterInsert,
+    OneToMany,
 } from 'typeorm';
-
+import { Report } from '../reports/report.entity';
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
@@ -17,6 +18,9 @@ export class User {
 
     @Column()
     password: string;
+
+    @OneToMany(() => Report, (report) => report.user)
+    reports: Array<Report>
 
     @AfterInsert()
     logInsert() {
